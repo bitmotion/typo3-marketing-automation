@@ -20,14 +20,8 @@ call_user_func(function () {
 
     $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
 
-    if (class_exists('\TYPO3\CMS\Install\Service\SqlExpectedSchemaService')) {
-        $signalClass = \TYPO3\CMS\Install\Service\SqlExpectedSchemaService::class;
-    } else {
-        $signalClass = \TYPO3\CMS\Extensionmanager\Utility\InstallUtility::class;
-    }
-
     $signalSlotDispatcher->connect(
-        $signalClass,
+        \TYPO3\CMS\Install\Service\SqlExpectedSchemaService::class,
         'tablesDefinitionIsBeingBuilt',
         \Bitmotion\MarketingAutomation\Persona\PersonaRestriction::class,
         'getPersonaFieldsRequiredDatabaseSchema'
